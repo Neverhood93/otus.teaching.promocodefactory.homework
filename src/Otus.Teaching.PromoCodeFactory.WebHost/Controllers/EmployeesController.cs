@@ -71,5 +71,24 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
 
             return employeeModel;
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployeeAsync(CreateEmployeeModel model)
+        {
+            return Ok();
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateEmployeeAsync(Guid id, UpdateEmployeeModel model)
+        {
+            return Ok();
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteEmployeeAsync(Guid id)
+        {
+            return Ok();
+        }
     }
 }
