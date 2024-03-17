@@ -18,10 +18,12 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         : ControllerBase
     {
         private readonly IRepository<Employee> _employeeRepository;
+        private readonly EmployeeHelper _employeeHelper;
 
-        public EmployeesController(IRepository<Employee> employeeRepository)
+        public EmployeesController(IRepository<Employee> employeeRepository, EmployeeHelper employeeHelper)
         {
             _employeeRepository = employeeRepository;
+            _employeeHelper = employeeHelper;
         }
         
         /// <summary>
@@ -60,7 +62,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
             {
                 Id = employee.Id,
                 Email = employee.Email,
-                Roles = employee.Roles.Select(x => new RoleItemResponse()
+                Roles = employee.Roles?.Select(x => new RoleItemResponse()
                 {
                     Name = x.Name,
                     Description = x.Description
@@ -70,6 +72,81 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
             };
 
             return employeeModel;
+        }
+
+        /// <summary>
+        /// Создать нового сотрудника по модели из запроса
+        /// </summary>
+        /// <param name="model">Модель из запроса</param>
+        /// <returns>Нового сотрудника</returns>
+        [HttpPost]
+        public async Task<ActionResult<Employee>> CreateEmployeeAsync(InputEmployeeModel model)
+        {
+            Employee employee = _employeeHelper.GetEmployeeFromInputModel(model);
+
+            try
+            {
+                return await _employeeRepository.CreateAsync(employee);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Изменить существующего сотрудника
+        /// </summary>
+        /// <param name="id">Id сотрудника</param>
+        /// <param name="model">Модель из запроса</param>
+        /// <returns></returns>
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateEmployeeAsync(Guid id, InputEmployeeModel model)
+        {
+            Employee oldEmployee = await _employeeRepository.GetByIdAsync(id);
+            if (oldEmployee == null)
+            {
+                return BadRequest();
+            }
+
+            Employee newEmployee = _employeeHelper.GetEmployeeFromInputModel(model);
+
+            try
+            {
+                await _employeeRepository.UpdateAsync(oldEmployee, newEmployee);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Удалить сотрудника
+        /// </summary>
+        /// <param name="id">Id сотрудника</param>
+        /// <returns></returns>
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteEmployeeAsync(Guid id)
+        {
+            Employee employee = await _employeeRepository.GetByIdAsync(id);
+            if (employee == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _employeeRepository.DeleteAsync(employee);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
         }
     }
 }
