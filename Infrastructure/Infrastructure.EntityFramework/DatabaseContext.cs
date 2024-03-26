@@ -12,16 +12,16 @@ namespace Infrastructure.EntityFramework
 
         public DbSet<Employee> Employee { get; set; }
 
+        public DbSet<Role> Role { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<Course>()
-            //    .HasMany(u => u.Lessons)
-            //    .WithOne(c => c.Course)
-            //    .IsRequired();
-
-            ////modelBuilder.Entity<Course>().HasIndex(c=>c.Name);
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Role)
+                .WithMany(r => r.Employees)
+                .HasForeignKey(e => e.RoleId);
 
             //modelBuilder.Entity<Course>().Property(c => c.Name).HasMaxLength(100);
             //modelBuilder.Entity<Lesson>().Property(c => c.Subject).HasMaxLength(100);
