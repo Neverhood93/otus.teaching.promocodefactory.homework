@@ -10,9 +10,6 @@ namespace Infrastructure.EntityFramework
         {
         }
 
-        /// <summary>
-        /// Курсы.
-        /// </summary>
         public DbSet<Employee> Employee { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -59,11 +59,11 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
             {
                 Id = employee.Id,
                 Email = employee.Email,
-                Roles = employee.Roles?.Select(x => new RoleItemResponse()
-                {
-                    Name = x.Name,
-                    Description = x.Description
-                }).ToList(),
+                //Roles = employee.Roles?.Select(x => new RoleItemResponse()
+                //{
+                //    Name = x.Name,
+                //    Description = x.Description
+                //}).ToList(),
                 FullName = employee.FullName,
                 AppliedPromocodesCount = employee.AppliedPromocodesCount
             };
