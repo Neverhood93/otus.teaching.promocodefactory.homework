@@ -12,6 +12,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Models
             newEmployee.LastName = model.LastName;
             newEmployee.Email = model.Email;
             newEmployee.AppliedPromocodesCount = model.AppliedPromocodesCount;
+            newEmployee.RoleId = model.RoleId;
 
             return newEmployee;
         }

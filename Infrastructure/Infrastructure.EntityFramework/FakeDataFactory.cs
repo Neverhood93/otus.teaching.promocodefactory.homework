@@ -8,26 +8,20 @@ namespace Infrastructure.EntityFramework
         {
             new Employee()
             {
-                Id = Guid.Parse("451533d5-d8d5-4a11-9c7b-eb9f14e1a32f"),
+                //Id = Guid.Parse("451533d5-d8d5-4a11-9c7b-eb9f14e1a32f"),
                 Email = "owner@somemail.ru",
                 FirstName = "Иван",
                 LastName = "Сергеев",
-                //Roles = new List<Role>()
-                //{
-                //    Roles.FirstOrDefault(x => x.Name == "Admin")
-                //},
+                RoleId = Guid.Parse("53729686-a368-4eeb-8bfa-cc69b6050d02"),
                 AppliedPromocodesCount = 5
             },
             new Employee()
             {
-                Id = Guid.Parse("f766e2bf-340a-46ea-bff3-f1700b435895"),
+                //Id = Guid.Parse("f766e2bf-340a-46ea-bff3-f1700b435895"),
                 Email = "andreev@somemail.ru",
                 FirstName = "Петр",
                 LastName = "Андреев",
-                //Roles = new List<Role>()
-                //{
-                //    Roles.FirstOrDefault(x => x.Name == "PartnerManager")
-                //},
+                RoleId = Guid.Parse("53729686-a368-4eeb-8bfa-cc69b6050d02"),
                 AppliedPromocodesCount = 10
             },
         };

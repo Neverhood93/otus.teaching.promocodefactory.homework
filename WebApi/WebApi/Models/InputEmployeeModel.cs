@@ -7,5 +7,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public int AppliedPromocodesCount { get; set; }
+
+        public Guid RoleId { get; set; }
     }
 }

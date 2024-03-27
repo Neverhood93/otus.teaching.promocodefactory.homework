@@ -1,4 +1,8 @@
-﻿using Infrastructure.EntityFramework;
+﻿using Domain.Entities;
+using Infrastructure.EntityFramework;
+using Infrastructure.Repositories.Implementations;
+using Otus.Teaching.PromoCodeFactory.WebHost.Models;
+using Services.Repositories.Abstractions;
 using WebApi.Settings;
 
 namespace WebApi
@@ -16,6 +20,15 @@ namespace WebApi
                     .InstallServices()
                     .ConfigureContext(applicationSettings.ConnectionString)
                     .InstallRepositories();
+            //services.AddSingleton(typeof(IRepository<Employee>), (x) =>
+            //    new InMemoryRepository<Employee>(FakeDataFactory.Employees));
+            //services.AddSingleton(typeof(IRepository<Role>), (x) =>
+            //    new InMemoryRepository<Role>(FakeDataFactory.Roles));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddSingleton<EmployeeHelper>();
+
+            services.AddScoped<IDataInitializer, EFDataInitializer>();
+
             return services;
         }
 

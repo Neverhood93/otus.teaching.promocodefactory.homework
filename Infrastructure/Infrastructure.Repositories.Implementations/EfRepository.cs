@@ -2,17 +2,18 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Infrastructure.EntityFramework;
 
 namespace Infrastructure.Repositories.Implementations
 {
     public class EfRepository<T> : IRepository<T> 
         where T : BaseEntity
     {
-        protected readonly DbContext Context;
+        protected readonly DatabaseContext Context;
 
         private readonly DbSet<T> _entity;
 
-        public EfRepository(DbContext context)
+        public EfRepository(DatabaseContext context)
         {
             Context = context;
             _entity = Context.Set<T>();
@@ -31,18 +32,9 @@ namespace Infrastructure.Repositories.Implementations
 
         public Task<T> CreateAsync(T entity)
         {
-            Guid newId = Guid.NewGuid();
-            entity.Id = newId;
-
-            List<T> listData = _entity as List<T>;
-            if (listData == null)
-            {
-                Task.FromException(new ArgumentNullException("listData is null"));
-            }
-
-            listData.Add(entity);
-
-            return Task.FromResult(entity);
+            var newEntity = _entity.Add(entity);
+            Context.SaveChangesAsync();
+            return Task.FromResult(newEntity.Entity);
         }
 
         public Task UpdateAsync(T oldEntity, T newEntity)

@@ -1,3 +1,4 @@
+using Infrastructure.EntityFramework;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
@@ -5,7 +6,12 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+            }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
