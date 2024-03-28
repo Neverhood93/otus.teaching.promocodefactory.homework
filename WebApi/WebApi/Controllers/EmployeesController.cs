@@ -1,8 +1,8 @@
-﻿
-using Domain.Entities;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Otus.Teaching.PromoCodeFactory.WebHost.Models;
-using Services.Repositories.Abstractions;
+using Services.Abstractions;
+using Services.Contracts.Employee;
+using WebApi.Models.Employee;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
 {
@@ -11,16 +11,15 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
     /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class EmployeesController
-        : ControllerBase
+    public class EmployeesController : ControllerBase
     {
-        private readonly IRepository<Employee> _employeeRepository;
-        private readonly EmployeeHelper _employeeHelper;
+        private readonly IEmployeeService _service;
+        private readonly IMapper _mapper;
 
-        public EmployeesController(IRepository<Employee> employeeRepository, EmployeeHelper employeeHelper)
+        public EmployeesController(IEmployeeService service, IMapper mapper)
         {
-            _employeeRepository = employeeRepository;
-            _employeeHelper = employeeHelper;
+            _service = service;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -28,19 +27,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<List<EmployeeShortResponse>> GetEmployeesAsync()
+        public async Task<List<EmployeeModel>> GetAllEntitiesAsync()
         {
-            var employees = await _employeeRepository.GetAllAsync();
-
-            var employeesModelList = employees.Select(x =>
-                new EmployeeShortResponse()
-                {
-                    Id = x.Id,
-                    Email = x.Email,
-                    FullName = x.FullName,
-                }).ToList();
-
-            return employeesModelList;
+            return _mapper.Map<List<EmployeeModel>>(await _service.GetAllAsync());
         }
 
         /// <summary>
@@ -48,27 +37,15 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<EmployeeResponse>> GetEmployeeByIdAsync(Guid id)
+        public async Task<IActionResult> GetEntityByIdAsync(Guid id)
         {
-            var employee = await _employeeRepository.GetByIdAsync(id);
-
-            if (employee == null)
-                return NotFound();
-
-            var employeeModel = new EmployeeResponse()
+            var entity = _mapper.Map<EmployeeModel>(await _service.GetByIdAsync(id));
+            if (entity == null)
             {
-                Id = employee.Id,
-                Email = employee.Email,
-                //Roles = employee.Roles?.Select(x => new RoleItemResponse()
-                //{
-                //    Name = x.Name,
-                //    Description = x.Description
-                //}).ToList(),
-                FullName = employee.FullName,
-                AppliedPromocodesCount = employee.AppliedPromocodesCount
-            };
+                return BadRequest();
+            }
 
-            return employeeModel;
+            return Ok(entity);
         }
 
         /// <summary>
@@ -77,18 +54,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// <param name="model">Модель из запроса</param>
         /// <returns>Нового сотрудника</returns>
         [HttpPost]
-        public async Task<ActionResult<Employee>> CreateEmployeeAsync(InputEmployeeModel model)
+        public async Task<IActionResult> CreateEntityAsync(CreatingEmployeeModel model)
         {
-            Employee employee = _employeeHelper.GetEmployeeFromInputModel(model);
-
-            try
-            {
-                return await _employeeRepository.CreateAsync(employee);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return Ok(await _service.CreateAsync(_mapper.Map<CreatingEmployeeDTO>(model)));
         }
 
         /// <summary>
@@ -98,24 +66,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// <param name="model">Модель из запроса</param>
         /// <returns></returns>
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateEmployeeAsync(Guid id, InputEmployeeModel model)
+        public async Task<IActionResult> UpdateEntityAsync(Guid id, UpdatingEmployeeModel model)
         {
-            Employee oldEmployee = await _employeeRepository.GetByIdAsync(id);
-            if (oldEmployee == null)
-            {
-                return BadRequest();
-            }
-
-            Employee newEmployee = _employeeHelper.GetEmployeeFromInputModel(model);
-
-            try
-            {
-                await _employeeRepository.UpdateAsync(oldEmployee, newEmployee);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            await _service.UpdateAsync(id, _mapper.Map<UpdatingEmployeeModel, UpdatingEmployeeDTO>(model));
 
             return Ok();
         }
@@ -126,22 +79,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// <param name="id">Id сотрудника</param>
         /// <returns></returns>
         [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeleteEmployeeAsync(Guid id)
+        public async Task<IActionResult> DeleteEntityAsync(Guid id)
         {
-            Employee employee = await _employeeRepository.GetByIdAsync(id);
-            if (employee == null)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await _employeeRepository.DeleteAsync(employee);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+            await _service.DeleteAsync(id);
 
             return Ok();
         }

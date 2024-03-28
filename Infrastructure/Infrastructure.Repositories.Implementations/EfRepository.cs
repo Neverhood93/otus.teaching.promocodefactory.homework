@@ -1,7 +1,6 @@
 ﻿using Services.Repositories.Abstractions;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Infrastructure.EntityFramework;
 
 namespace Infrastructure.Repositories.Implementations
@@ -9,61 +8,40 @@ namespace Infrastructure.Repositories.Implementations
     public class EfRepository<T> : IRepository<T> 
         where T : BaseEntity
     {
-        protected readonly DatabaseContext Context;
+        protected readonly DbContext Context;
 
-        private readonly DbSet<T> _entity;
+        private readonly DbSet<T> _entitySet;
 
-        public EfRepository(DatabaseContext context)
+        protected EfRepository(DbContext context)
         {
             Context = context;
-            _entity = Context.Set<T>();
+            _entitySet = Context.Set<T>();
         }
 
-
-        public Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<List<T>> GetAllAsync()
         {
-            return Task.FromResult(_entity as IEnumerable<T>);
+            return await _entitySet.ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public virtual async Task<T> GetByIdAsync(Guid id)
         {
-            return Task.FromResult(_entity.FirstOrDefault(x => x.Id == id));
+            return await _entitySet.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<T> CreateAsync(T entity)
+        public virtual async Task<T> CreateAsync(T entity)
         {
-            var newEntity = _entity.Add(entity);
-            Context.SaveChangesAsync();
-            return Task.FromResult(newEntity.Entity);
+            return (await _entitySet.AddAsync(entity)).Entity;
         }
 
-        public Task UpdateAsync(T oldEntity, T newEntity)
+        public virtual async Task DeleteAsync(T entity)
         {
-            List<T> listData = _entity as List<T>;
-            if (listData == null)
-            {
-                Task.FromException(new ArgumentNullException("listData is null"));
-            }
-
-            newEntity.Id = oldEntity.Id;
-
-            listData.Remove(oldEntity);
-            listData.Add(newEntity);
-
-            return Task.CompletedTask;
+            _entitySet.Remove(entity);
+            await SaveChangesAsync();
         }
 
-        public Task DeleteAsync(T entity)
+        public virtual async Task SaveChangesAsync()
         {
-            List<T> listData = _entity as List<T>;
-            if (listData == null)
-            {
-                Task.FromException(new ArgumentNullException("listData is null"));
-            }
-
-            listData.Remove(entity);
-
-            return Task.CompletedTask;
+            await Context.SaveChangesAsync();
         }
     }
 }

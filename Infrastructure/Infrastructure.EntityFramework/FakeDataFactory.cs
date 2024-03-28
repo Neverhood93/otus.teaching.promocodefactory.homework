@@ -8,7 +8,7 @@ namespace Infrastructure.EntityFramework
         {
             new Employee()
             {
-                //Id = Guid.Parse("451533d5-d8d5-4a11-9c7b-eb9f14e1a32f"),
+                Id = Guid.Parse("451533d5-d8d5-4a11-9c7b-eb9f14e1a32f"),
                 Email = "owner@somemail.ru",
                 FirstName = "Иван",
                 LastName = "Сергеев",
@@ -17,7 +17,7 @@ namespace Infrastructure.EntityFramework
             },
             new Employee()
             {
-                //Id = Guid.Parse("f766e2bf-340a-46ea-bff3-f1700b435895"),
+                Id = Guid.Parse("f766e2bf-340a-46ea-bff3-f1700b435895"),
                 Email = "andreev@somemail.ru",
                 FirstName = "Петр",
                 LastName = "Андреев",

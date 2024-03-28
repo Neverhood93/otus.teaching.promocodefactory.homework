@@ -1,7 +1,6 @@
 ﻿
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Otus.Teaching.PromoCodeFactory.WebHost.Models;
 using Services.Repositories.Abstractions;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
@@ -24,20 +23,20 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// Получить все доступные роли сотрудников
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<List<RoleItemResponse>> GetRolesAsync()
-        {
-            var roles = await _rolesRepository.GetAllAsync();
+        //[HttpGet]
+        //public async Task<List<RoleItemResponse>> GetRolesAsync()
+        //{
+        //    var roles = await _rolesRepository.GetAllAsync();
 
-            var rolesModelList = roles.Select(x =>
-                new RoleItemResponse()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description
-                }).ToList();
+        //    var rolesModelList = roles.Select(x =>
+        //        new RoleItemResponse()
+        //        {
+        //            Id = x.Id,
+        //            Name = x.Name,
+        //            Description = x.Description
+        //        }).ToList();
 
-            return rolesModelList;
-        }
+        //    return rolesModelList;
+        //}
     }
 }

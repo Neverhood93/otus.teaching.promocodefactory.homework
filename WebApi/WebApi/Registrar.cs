@@ -1,9 +1,12 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
 using Infrastructure.EntityFramework;
 using Infrastructure.Repositories.Implementations;
-using Otus.Teaching.PromoCodeFactory.WebHost.Models;
+using Services.Abstractions;
+using Services.Implementations;
 using Services.Repositories.Abstractions;
 using WebApi.Settings;
+using Services.Implementations.Mapping;
+using WebApi.Mapping;
 
 namespace WebApi
 {
@@ -14,38 +17,53 @@ namespace WebApi
     {
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
+            InstallAutomapper(services);
+
             var applicationSettings = configuration.Get<ApplicationSettings>();
+
             services.AddSingleton(applicationSettings)
                     .AddSingleton((IConfigurationRoot)configuration)
                     .InstallServices()
                     .ConfigureContext(applicationSettings.ConnectionString)
-                    .InstallRepositories();
-            //services.AddSingleton(typeof(IRepository<Employee>), (x) =>
-            //    new InMemoryRepository<Employee>(FakeDataFactory.Employees));
-            //services.AddSingleton(typeof(IRepository<Role>), (x) =>
-            //    new InMemoryRepository<Role>(FakeDataFactory.Roles));
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddSingleton<EmployeeHelper>();
-
-            services.AddScoped<IDataInitializer, EFDataInitializer>();
+                    .InstallRepositories()
+                    .AddScoped<IDataInitializer, EFDataInitializer>();
 
             return services;
         }
 
         private static IServiceCollection InstallServices(this IServiceCollection serviceCollection)
         {
-            //serviceCollection
-            //.AddTransient<ICourseService, CourseService>()
-            //    .AddTransient<ILessonService, LessonService>();
+            serviceCollection
+                .AddTransient<IEmployeeService, EmployeeService>()
+                .AddTransient<IRoleService, RoleService>();
             return serviceCollection;
         }
 
         private static IServiceCollection InstallRepositories(this IServiceCollection serviceCollection)
         {
-            //serviceCollection
-            //    .AddTransient<ICourseRepository, CourseRepository>()
-            //    .AddTransient<ILessonRepository, LessonRepository>();
+            serviceCollection
+                .AddTransient<IEmployeeRepository, EmployeeRepository>()
+                .AddTransient<IRoleRepository, RoleRepository>();
             return serviceCollection;
+        }
+
+        private static IServiceCollection InstallAutomapper(IServiceCollection services)
+        {
+            services.AddSingleton<IMapper>(new Mapper(GetMapperConfiguration()));
+            return services;
+        }
+
+        private static MapperConfiguration GetMapperConfiguration()
+        {
+            var configuration = new MapperConfiguration(config =>
+            {
+                config.AddProfile<EmployeeMappingsProfileController>();
+                config.AddProfile<RoleMappingsProfileController>();
+                config.AddProfile<EmployeeMappingsProfile>();
+                config.AddProfile<RoleMappingsProfile>();
+            });
+            configuration.AssertConfigurationIsValid();
+            return configuration;
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using Domain.Entities;
-using Infrastructure.EntityFramework;
-using Infrastructure.Repositories.Implementations;
-using Otus.Teaching.PromoCodeFactory.WebHost.Models;
+﻿using Microsoft.OpenApi.Models;
 using Services.Repositories.Abstractions;
+using System.Reflection;
 using WebApi;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
@@ -23,7 +21,17 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             services.AddControllers();            
 
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "PromoCodeFactory API",
+                });
+
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataInitializer dataInitializer)

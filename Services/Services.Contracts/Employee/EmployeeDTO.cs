@@ -1,8 +1,10 @@
 ﻿
-namespace Domain.Entities
+namespace Services.Contracts.Employee
 {
-    public class Employee : BaseEntity
+    public class EmployeeDTO
     {
+        public Guid Id { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -12,7 +14,5 @@ namespace Domain.Entities
         public int AppliedPromocodesCount { get; set; }
 
         public Guid RoleId { get; set; }
-
-        public virtual Role Role { get; set; }             
     }
 }
