@@ -339,3 +339,8 @@ ASALocalRun/
 .localhistory/
 
 .vscode/
+
+# LocalDatabase
+WebApi/LocalDatabase.*
+WebApi/LocalDatabase.db-shm
+WebApi/LocalDatabase.db-wal
