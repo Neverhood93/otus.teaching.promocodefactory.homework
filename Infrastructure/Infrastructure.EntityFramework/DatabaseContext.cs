@@ -23,9 +23,13 @@ namespace Infrastructure.EntityFramework
                 .WithMany(r => r.Employees)
                 .HasForeignKey(e => e.RoleId);
 
-            //modelBuilder.Entity<Course>().Property(c => c.Name).HasMaxLength(100);
-            //modelBuilder.Entity<Lesson>().Property(c => c.Subject).HasMaxLength(100);
-        }
+            modelBuilder.Entity<Employee>().Property(c => c.FirstName).HasMaxLength(100);
+            modelBuilder.Entity<Employee>().Property(c => c.LastName).HasMaxLength(100);
+            modelBuilder.Entity<Employee>().Property(c => c.Email).HasMaxLength(100);
+
+            modelBuilder.Entity<Role>().Property(c => c.Name).HasMaxLength(100);
+            modelBuilder.Entity<Role>().Property(c => c.Description).HasMaxLength(100);
+    }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

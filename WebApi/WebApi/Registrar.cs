@@ -10,9 +10,6 @@ using WebApi.Mapping;
 
 namespace WebApi
 {
-    /// <summary>
-    /// Регистратор сервиса.
-    /// </summary>
     public static class Registrar
     {
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)

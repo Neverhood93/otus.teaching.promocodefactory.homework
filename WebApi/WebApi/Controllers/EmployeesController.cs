@@ -25,7 +25,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// <summary>
         /// Получить данные всех сотрудников
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Список сотрудников</returns>
         [HttpGet]
         public async Task<List<EmployeeModel>> GetAllEntitiesAsync()
         {
@@ -35,7 +35,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// <summary>
         /// Получить данные сотрудника по Id
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Данные сотрудника</returns>
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetEntityByIdAsync(Guid id)
         {
@@ -52,7 +52,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// Создать нового сотрудника по модели из запроса
         /// </summary>
         /// <param name="model">Модель из запроса</param>
-        /// <returns>Нового сотрудника</returns>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateEntityAsync(CreatingEmployeeModel model)
         {

@@ -1,12 +1,10 @@
 ﻿using Services.Repositories.Abstractions;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.EntityFramework;
 
 namespace Infrastructure.Repositories.Implementations
 {
-    public class EfRepository<T> : IRepository<T> 
-        where T : BaseEntity
+    public class EfRepository<T> : IRepository<T> where T : BaseEntity
     {
         protected readonly DbContext Context;
 

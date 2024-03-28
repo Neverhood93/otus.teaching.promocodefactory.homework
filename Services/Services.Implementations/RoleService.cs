@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Domain.Entities;
 using Services.Abstractions;
 using Services.Contracts.Role;
 using Services.Repositories.Abstractions;
@@ -17,21 +16,9 @@ namespace Services.Implementations
             _roleRepository = roleRepository;
         }
 
-        public async Task<RoleDTO> GetByIdAsync(Guid id)
+        public async Task<List<RoleDTO>> GetAllAsync()
         {
-            var role = await _roleRepository.GetByIdAsync(id);
-            return _mapper.Map<Role, RoleDTO>(role);
+            return _mapper.Map<List<RoleDTO>>(await _roleRepository.GetAllAsync());
         }
-
-        public async Task<Guid> CreateAsync(CreatingRoleDTO creatingRoleDTO)
-        {
-            var role = _mapper.Map<CreatingRoleDTO, Role>(creatingRoleDTO);
-            var createdRole = await _roleRepository.CreateAsync(role);
-            await _roleRepository.SaveChangesAsync();
-
-            return createdRole.Id;
-        }
-
-        
     }
 }

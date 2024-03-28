@@ -9,14 +9,6 @@ namespace Services.Implementations.Mapping
         public RoleMappingsProfile()
         {
             CreateMap<Role, RoleDTO>();
-
-            CreateMap<CreatingRoleDTO, Role>()
-                .ForMember(d => d.Id, map => map.Ignore())
-                .ForMember(d => d.Employees, map => map.Ignore());
-
-            CreateMap<UpdatingRoleDTO, Role>()
-                .ForMember(d => d.Id, map => map.Ignore())
-                .ForMember(d => d.Employees, map => map.Ignore());
         }
     }
 }

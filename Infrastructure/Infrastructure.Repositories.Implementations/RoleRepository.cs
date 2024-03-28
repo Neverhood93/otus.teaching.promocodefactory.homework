@@ -1,5 +1,4 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure.EntityFramework;
 using Services.Repositories.Abstractions;
 

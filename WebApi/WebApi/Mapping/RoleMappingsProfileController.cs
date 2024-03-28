@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Services.Contracts.Role;
 using WebApi.Models.Role;
 

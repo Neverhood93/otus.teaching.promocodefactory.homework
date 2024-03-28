@@ -1,7 +1,7 @@
-﻿
-using Domain.Entities;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Services.Repositories.Abstractions;
+using Services.Abstractions;
+using WebApi.Models.Role;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
 {
@@ -10,33 +10,25 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
     /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class RolesController
+    public class RoleController : ControllerBase
     {
-        private readonly IRepository<Role> _rolesRepository;
+        private readonly IRoleService _service;
+        private readonly IMapper _mapper;
 
-        public RolesController(IRepository<Role> rolesRepository)
+        public RoleController(IRoleService service, IMapper mapper)
         {
-            _rolesRepository = rolesRepository;
+            _service = service;
+            _mapper = mapper;
         }
 
         /// <summary>
-        /// Получить все доступные роли сотрудников
+        /// Получить данные всех ролей
         /// </summary>
-        /// <returns></returns>
-        //[HttpGet]
-        //public async Task<List<RoleItemResponse>> GetRolesAsync()
-        //{
-        //    var roles = await _rolesRepository.GetAllAsync();
-
-        //    var rolesModelList = roles.Select(x =>
-        //        new RoleItemResponse()
-        //        {
-        //            Id = x.Id,
-        //            Name = x.Name,
-        //            Description = x.Description
-        //        }).ToList();
-
-        //    return rolesModelList;
-        //}
+        /// <returns>Список ролей</returns>
+        [HttpGet]
+        public async Task<List<RoleModel>> GetAllEntitiesAsync()
+        {
+            return _mapper.Map<List<RoleModel>>(await _service.GetAllAsync());
+        }
     }
 }
