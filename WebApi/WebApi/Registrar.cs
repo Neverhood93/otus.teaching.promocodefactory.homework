@@ -33,7 +33,8 @@ namespace WebApi
             serviceCollection
                 .AddTransient<IEmployeeService, EmployeeService>()
                 .AddTransient<IRoleService, RoleService>()
-                .AddTransient<ICustomerService, CustomerService>();
+                .AddTransient<ICustomerService, CustomerService>()
+                .AddTransient<IPreferenceService, PreferenceService>();
             return serviceCollection;
         }
 
@@ -42,7 +43,8 @@ namespace WebApi
             serviceCollection
                 .AddTransient<IEmployeeRepository, EmployeeRepository>()
                 .AddTransient<IRoleRepository, RoleRepository>()
-                .AddTransient<ICustomerRepository, CustomerRepository>();
+                .AddTransient<ICustomerRepository, CustomerRepository>()
+                .AddTransient<IPreferenceRepository, PreferenceRepository>();
             return serviceCollection;
         }
 
@@ -58,10 +60,15 @@ namespace WebApi
             {
                 config.AddProfile<EmployeeMappingsProfileController>();
                 config.AddProfile<EmployeeMappingsProfile>();
+
                 config.AddProfile<RoleMappingsProfileController>();                
                 config.AddProfile<RoleMappingsProfile>();
+
                 config.AddProfile<CustomerMappingsProfileController>();
                 config.AddProfile<CustomerMappingsProfile>();
+
+                config.AddProfile<PreferenceMappingsProfileController>();
+                config.AddProfile<PreferenceMappingsProfile>();
             });
             configuration.AssertConfigurationIsValid();
             return configuration;

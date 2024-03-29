@@ -84,12 +84,34 @@ namespace Infrastructure.EntityFramework
             new CustomerPreference()
             {
                 CustomerId = Guid.Parse("1F815DDD-5E3A-4D8A-A9BE-F30FE2197F7C"),    // Роман Петров
-                PreferenceId = Guid.Parse("86DD90E6-12BE-45B0-A637-EA82B04B1FCA")   // Кино
+                PreferenceId = Guid.Parse("86DD90E6-12BE-45B0-A637-EA82B04B1FCA")   // Рестораны
             },
             new CustomerPreference()
             {
                 CustomerId = Guid.Parse("8F08107E-BE11-4278-A40B-FC8C78B6C2CF"),    // Алексей Гусев
-                PreferenceId = Guid.Parse("86DD90E6-12BE-45B0-A637-EA82B04B1FCA")   // Кино
+                PreferenceId = Guid.Parse("86DD90E6-12BE-45B0-A637-EA82B04B1FCA")   // Рестораны
+            }
+        };
+
+        public static IEnumerable<PromoCode> PromoCodes => new List<PromoCode>()
+        {
+            new PromoCode()
+            {
+                Code = "MOVY1",
+                CustomerId = Guid.Parse("1F815DDD-5E3A-4D8A-A9BE-F30FE2197F7C"),    // Роман Петров
+                PreferenceId = Guid.Parse("C1B3B585-C4B2-4CA8-9AC8-BC403D8A86D3")   // Кино
+            },
+            new PromoCode()
+            {
+                Code = "DINNER3",
+                CustomerId = Guid.Parse("1F815DDD-5E3A-4D8A-A9BE-F30FE2197F7C"),    // Роман Петров
+                PreferenceId = Guid.Parse("86DD90E6-12BE-45B0-A637-EA82B04B1FCA")   // Рестораны
+            },
+            new PromoCode()
+            {
+                Code = "DINNER5",
+                CustomerId = Guid.Parse("8F08107E-BE11-4278-A40B-FC8C78B6C2CF"),    // Алексей Гусев
+                PreferenceId = Guid.Parse("86DD90E6-12BE-45B0-A637-EA82B04B1FCA")   // Рестораны
             }
         };
     }

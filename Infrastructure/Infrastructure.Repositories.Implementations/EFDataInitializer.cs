@@ -1,4 +1,5 @@
-﻿using Infrastructure.EntityFramework;
+﻿using Domain.Entities;
+using Infrastructure.EntityFramework;
 using Services.Repositories.Abstractions;
 
 namespace Infrastructure.Repositories.Implementations
@@ -23,6 +24,7 @@ namespace Infrastructure.Repositories.Implementations
             Context.AddRange(FakeDataFactory.Customers);
             Context.AddRange(FakeDataFactory.Preferences);
             Context.AddRange(FakeDataFactory.CustomerPreferences);
+            Context.AddRange(FakeDataFactory.PromoCodes);
 
             Context.SaveChanges();
         }

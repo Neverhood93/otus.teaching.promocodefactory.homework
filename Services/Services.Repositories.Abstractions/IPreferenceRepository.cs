@@ -2,7 +2,7 @@
 
 namespace Services.Repositories.Abstractions
 {
-    public interface IRoleRepository : IRepository<Role>
+    public interface IPreferenceRepository : IRepository<Preference>
     {
     }
 }

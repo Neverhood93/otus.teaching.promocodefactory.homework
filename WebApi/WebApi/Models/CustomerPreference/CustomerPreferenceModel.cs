@@ -12,6 +12,6 @@ namespace WebApi.Models.CustomerPreference
 
         public Guid PreferenceId { get; set; }
 
-        public virtual PrefernceModel Preference { get; set; }
+        public virtual PreferenceModel Preference { get; set; }
     }
 }
