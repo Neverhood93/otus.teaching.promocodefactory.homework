@@ -1,9 +1,7 @@
-﻿using Services.Contracts.CustomerPreference;
-using Services.Contracts.PromoCode;
-
-namespace Services.Contracts.Customer
+﻿
+namespace WebApi.Models.Customer
 {
-    public class CustomerDTO
+    public class CustomerModel
     {
         public Guid Id { get; set; }
 

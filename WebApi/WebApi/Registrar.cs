@@ -32,7 +32,8 @@ namespace WebApi
         {
             serviceCollection
                 .AddTransient<IEmployeeService, EmployeeService>()
-                .AddTransient<IRoleService, RoleService>();
+                .AddTransient<IRoleService, RoleService>()
+                .AddTransient<ICustomerService, CustomerService>();
             return serviceCollection;
         }
 
@@ -40,7 +41,8 @@ namespace WebApi
         {
             serviceCollection
                 .AddTransient<IEmployeeRepository, EmployeeRepository>()
-                .AddTransient<IRoleRepository, RoleRepository>();
+                .AddTransient<IRoleRepository, RoleRepository>()
+                .AddTransient<ICustomerRepository, CustomerRepository>();
             return serviceCollection;
         }
 
@@ -55,9 +57,11 @@ namespace WebApi
             var configuration = new MapperConfiguration(config =>
             {
                 config.AddProfile<EmployeeMappingsProfileController>();
-                config.AddProfile<RoleMappingsProfileController>();
                 config.AddProfile<EmployeeMappingsProfile>();
+                config.AddProfile<RoleMappingsProfileController>();                
                 config.AddProfile<RoleMappingsProfile>();
+                config.AddProfile<CustomerMappingsProfileController>();
+                config.AddProfile<CustomerMappingsProfile>();
             });
             configuration.AssertConfigurationIsValid();
             return configuration;

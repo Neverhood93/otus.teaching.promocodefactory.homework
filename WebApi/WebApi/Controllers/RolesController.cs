@@ -22,9 +22,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         }
 
         /// <summary>
-        /// Получить данные всех ролей
+        /// Получить данные всех ролей c вложенными пользователями
         /// </summary>
-        /// <returns>Список ролей</returns>
+        /// <returns>Список ролей c вложенными пользователями</returns>
         [HttpGet]
         public async Task<List<RoleModel>> GetAllEntitiesAsync()
         {

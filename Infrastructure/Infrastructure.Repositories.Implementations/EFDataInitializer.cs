@@ -19,9 +19,11 @@ namespace Infrastructure.Repositories.Implementations
             Context.Database.EnsureCreated();
 
             Context.AddRange(FakeDataFactory.Roles);
-            Context.SaveChanges();
-
             Context.AddRange(FakeDataFactory.Employees);
+            Context.AddRange(FakeDataFactory.Customers);
+            Context.AddRange(FakeDataFactory.Preferences);
+            Context.AddRange(FakeDataFactory.CustomerPreferences);
+
             Context.SaveChanges();
         }
     }
