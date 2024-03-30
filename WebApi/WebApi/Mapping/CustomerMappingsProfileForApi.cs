@@ -4,9 +4,9 @@ using WebApi.Models.Customer;
 
 namespace WebApi.Mapping
 {
-    public class CustomerMappingsProfileController : Profile
+    public class CustomerMappingsProfileForApi : Profile
     {
-        public CustomerMappingsProfileController()
+        public CustomerMappingsProfileForApi()
         {
             CreateMap<CustomerDTO, CustomerModel>();
             CreateMap<CreatingCustomerModel, CreatingCustomerDTO>();

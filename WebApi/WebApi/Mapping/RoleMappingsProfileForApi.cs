@@ -4,9 +4,9 @@ using WebApi.Models.Role;
 
 namespace WebApi.Mapping
 {
-    public class RoleMappingsProfileController : Profile
+    public class RoleMappingsProfileForApi : Profile
     {
-        public RoleMappingsProfileController()
+        public RoleMappingsProfileForApi()
         {
             CreateMap<RoleDTO, RoleModel>();
         }

@@ -4,9 +4,9 @@ using WebApi.Models.Preference;
 
 namespace WebApi.Mapping
 {
-    public class PreferenceMappingsProfileController : Profile
+    public class PreferenceMappingsProfileForApi : Profile
     {
-        public PreferenceMappingsProfileController()
+        public PreferenceMappingsProfileForApi()
         {
             CreateMap<PreferenceDTO, PreferenceModel>();
         }

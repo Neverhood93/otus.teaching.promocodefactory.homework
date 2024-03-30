@@ -12,7 +12,7 @@ namespace WebApi.Models.Customer
 
         public string Email { get; set; }
 
-        //public virtual List<PromoCodeDTO> PromoCodes { get; set; }
+        //public virtual List<PromoCodeModel> PromoCodes { get; set; }
 
         public virtual List<CustomerPreferenceModel> CustomerPreferences { get; set; }
     }

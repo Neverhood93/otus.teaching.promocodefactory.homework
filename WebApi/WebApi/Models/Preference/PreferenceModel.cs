@@ -10,7 +10,5 @@ namespace WebApi.Models.Preference
         public string Name { get; set; }
 
         public virtual List<CustomerPreferenceModel> CustomerPreferences { get; set; }
-
-        //public virtual List<CustomerModel> Customers { get; set; }
     }
 }

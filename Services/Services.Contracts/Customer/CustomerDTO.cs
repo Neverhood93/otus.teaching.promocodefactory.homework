@@ -1,5 +1,4 @@
 ﻿using Services.Contracts.CustomerPreference;
-using Services.Contracts.PromoCode;
 
 namespace Services.Contracts.Customer
 {

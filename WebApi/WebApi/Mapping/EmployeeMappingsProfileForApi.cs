@@ -4,9 +4,9 @@ using WebApi.Models.Employee;
 
 namespace WebApi.Mapping
 {
-    public class EmployeeMappingsProfileController : Profile
+    public class EmployeeMappingsProfileForApi : Profile
     {
-        public EmployeeMappingsProfileController()
+        public EmployeeMappingsProfileForApi()
         {
             CreateMap<EmployeeDTO, EmployeeModel>();
             CreateMap<CreatingEmployeeModel, CreatingEmployeeDTO>();

@@ -23,9 +23,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         }
 
         /// <summary>
-        /// Получить данные всех клиентов
+        /// Получить данные всех клиентов с их предпочтениями
         /// </summary>
-        /// <returns>Список клиентов</returns>
+        /// <returns>Список клиентов с их предпочтениями</returns>
         [HttpGet]
         public async Task<List<CustomerModel>> GetAllEntitiesAsync()
         {
@@ -33,9 +33,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         }
 
         /// <summary>
-        /// Получить данные клиента по Id
+        /// Получить данные клиента по Id с его предпочтениями
         /// </summary>
-        /// <returns>Данные клиента</returns>
+        /// <returns>Данные клиента с его предпочтениями</returns>
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetEntityByIdAsync(Guid id)
         {

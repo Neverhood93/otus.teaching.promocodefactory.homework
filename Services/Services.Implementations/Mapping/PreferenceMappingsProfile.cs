@@ -9,8 +9,6 @@ namespace Services.Implementations.Mapping
         public PreferenceMappingsProfile()
         {
             CreateMap<Preference, PreferenceDTO>();
-                //.ForMember(d => d.PromoCodes, map => map.Ignore())
-                //.ForMember(d => d.CustomerPreferences, map => map.Ignore());
         }
     }
 }

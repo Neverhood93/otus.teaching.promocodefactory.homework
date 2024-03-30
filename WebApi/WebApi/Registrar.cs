@@ -58,19 +58,19 @@ namespace WebApi
         {
             var configuration = new MapperConfiguration(config =>
             {
-                config.AddProfile<EmployeeMappingsProfileController>();
+                config.AddProfile<EmployeeMappingsProfileForApi>();
                 config.AddProfile<EmployeeMappingsProfile>();
 
-                config.AddProfile<RoleMappingsProfileController>();                
+                config.AddProfile<RoleMappingsProfileForApi>();                
                 config.AddProfile<RoleMappingsProfile>();
 
-                config.AddProfile<CustomerMappingsProfileController>();
+                config.AddProfile<CustomerMappingsProfileForApi>();
                 config.AddProfile<CustomerMappingsProfile>();
 
-                config.AddProfile<PreferenceMappingsProfileController>();
+                config.AddProfile<PreferenceMappingsProfileForApi>();
                 config.AddProfile<PreferenceMappingsProfile>();
 
-                config.AddProfile<CustomerPreferenceMappingsProfileController>();
+                config.AddProfile<CustomerPreferenceMappingsProfileForApi>();
                 config.AddProfile<CustomerPreferenceMappingsProfile>();
             });
             configuration.AssertConfigurationIsValid();

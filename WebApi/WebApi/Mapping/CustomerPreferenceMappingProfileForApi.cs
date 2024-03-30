@@ -4,12 +4,11 @@ using WebApi.Models.CustomerPreference;
 
 namespace WebApi.Mapping
 {
-    public class CustomerPreferenceMappingsProfileController : Profile
+    public class CustomerPreferenceMappingsProfileForApi : Profile
     {
-        public CustomerPreferenceMappingsProfileController()
+        public CustomerPreferenceMappingsProfileForApi()
         {
             CreateMap<CustomerPreferenceDTO, CustomerPreferenceModel>();
-                //.ForMember(d => d.CustomerName, map => map.MapFrom(m => m.Customer.LastName));
         }
     }
 }
