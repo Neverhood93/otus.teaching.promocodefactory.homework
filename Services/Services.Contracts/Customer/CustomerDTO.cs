@@ -15,6 +15,6 @@ namespace Services.Contracts.Customer
 
         //public virtual List<PromoCodeDTO> PromoCodes { get; set; }
 
-        //public virtual List<CustomerPreferenceDTO> CustomerPreferences { get; set; }
+        public virtual List<CustomerPreferenceDTO> CustomerPreferences { get; set; }
     }
 }

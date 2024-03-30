@@ -1,4 +1,5 @@
-﻿
+﻿using WebApi.Models.CustomerPreference;
+
 namespace WebApi.Models.Customer
 {
     public class CustomerModel
@@ -13,6 +14,6 @@ namespace WebApi.Models.Customer
 
         //public virtual List<PromoCodeDTO> PromoCodes { get; set; }
 
-        //public virtual List<CustomerPreferenceDTO> CustomerPreferences { get; set; }
+        public virtual List<CustomerPreferenceModel> CustomerPreferences { get; set; }
     }
 }

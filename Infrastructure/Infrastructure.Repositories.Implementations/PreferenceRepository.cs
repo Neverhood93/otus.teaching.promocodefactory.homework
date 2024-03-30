@@ -11,12 +11,12 @@ namespace Infrastructure.Repositories.Implementations
         {
         }
 
-        //public override async Task<List<Preference>> GetAllAsync()
-        //{
-        //    return await Context.Set<Preference>()
-        //        .Include(p => p.CustomerPreferences)
-        //        .ThenInclude(cp => cp.Customer)
-        //        .ToListAsync();
-        //}
+        public override async Task<List<Preference>> GetAllAsync()
+        {
+            return await Context.Set<Preference>()
+                .Include(r => r.CustomerPreferences)
+                .ThenInclude(cp => cp.Customer)
+                .ToListAsync();
+        }
     }
 }

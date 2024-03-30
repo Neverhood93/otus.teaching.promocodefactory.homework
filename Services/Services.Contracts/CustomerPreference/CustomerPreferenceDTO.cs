@@ -8,11 +8,15 @@ namespace Services.Contracts.CustomerPreference
     {
         public Guid CustomerId { get; set; }
 
-        public virtual CustomerDTO Customer { get; set; }
+        public string CustomerName { get; set; }
+
+        //public virtual CustomerDTO Customer { get; set; }
 
 
         public Guid PreferenceId { get; set; }
 
-        public virtual PreferenceDTO Preference { get; set; }
+        public string PreferenceName { get; set; }
+
+        //public virtual PreferenceDTO Preference { get; set; }
     }
 }

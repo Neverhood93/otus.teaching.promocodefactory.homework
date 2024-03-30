@@ -69,6 +69,9 @@ namespace WebApi
 
                 config.AddProfile<PreferenceMappingsProfileController>();
                 config.AddProfile<PreferenceMappingsProfile>();
+
+                config.AddProfile<CustomerPreferenceMappingsProfileController>();
+                config.AddProfile<CustomerPreferenceMappingsProfile>();
             });
             configuration.AssertConfigurationIsValid();
             return configuration;

@@ -27,7 +27,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
         /// <returns>Список ролей c вложенными клиентами</returns>
         [HttpGet]
         public async Task<List<PreferenceModel>> GetAllEntitiesAsync()
-        {
+        { 
             return _mapper.Map<List<PreferenceModel>>(await _service.GetAllAsync());
         }
     }

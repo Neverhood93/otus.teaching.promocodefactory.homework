@@ -1,4 +1,5 @@
 ﻿using WebApi.Models.Customer;
+using WebApi.Models.CustomerPreference;
 
 namespace WebApi.Models.Preference
 {
@@ -7,6 +8,8 @@ namespace WebApi.Models.Preference
         public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public virtual List<CustomerPreferenceModel> CustomerPreferences { get; set; }
 
         //public virtual List<CustomerModel> Customers { get; set; }
     }
